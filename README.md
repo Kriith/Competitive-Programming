@@ -4,7 +4,7 @@ This repository contains my solutions to various competitive programming problem
 
 ## Contents
 
-- Solutions to problems from platforms such as [Codeforces](https://codeforces.com/), [LeetCode](https://leetcode.com/), [CSES]((https://cses.fi/problemset/), [AtCoder](https://atcoder.jp/), and others.
+- Solutions to problems from platforms such as [Codeforces](https://codeforces.com/), [LeetCode](https://leetcode.com/), [CSES](https://cses.fi/problemset/), [AtCoder](https://atcoder.jp/), and others.
 - Algorithms and data structures I have implemented and learned.
 - Various problem-solving techniques including dynamic programming, greedy algorithms, graph algorithms, etc.
 
