@@ -10,7 +10,6 @@ This repository contains my solutions to various competitive programming problem
 
 ## Directory Structure and Naming Conventions
 
-- All of the code is kept inside the master branch of the repository.
 - Each folder either represents a platform, a collection of set of problems or a Codeforces contest(eg: 2074 represents the Codeforces Round 1009 which was the contest no. 2074)
 - Inside the folder, you will find the solutions to individual problems.
 
