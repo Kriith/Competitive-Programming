@@ -1,21 +1,23 @@
 class Solution {
     public:
         bool isMatch(string s, string p) {
-            if(s == p || (s.size() == 0 && p.size() == 0)) return true;
-            else if(p.size() == 0) return false;
-            else if(s.size() == 0){
-                for(int i = 0; i < p.size(); i++)
-                    if(p[i] != '*') return false;
-                return true;
+            int m = s.size(), n = p.size();
+            vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, 0));
+            dp[0][0] = 1;
+            for(int i = 1; i <= n; i++) 
+                if(p[i - 1] == '*') dp[0][i] = dp[0][i - 1];
+            for(int i = 1; i <= m; i++){
+                for(int j = 1; j <= n; j++){
+                    if(s[i - 1] == p[j - 1] || p[j - 1] == '?')
+                        dp[i][j] = dp[i - 1][j - 1];
+                    else if(p[j - 1] == '*')
+                        dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+                }
             }
-            string ss = "", pp = "";
-            if(p[0] == '?' || s[0] == p[0]){ ss = s.substr(1); pp = p.substr(1); }
-            else if(p[0] == '*'){
-                if(p.size() == 1) return true;
-                else if(p[1] == s[0]){ ss = s.substr(1); pp = p.substr(2); }
-                else{ ss = s.substr(1); pp = p; }
-            }
-            else if(s[0] != p[0]) return false;
-            return isMatch(ss, pp);
+            // for(int i = 0; i <= m; i++){
+            //     for(int j = 0; j <= n; j++) cout<<dp[i][j]<<' ';
+            //     cout<<endl;
+            // }
+            return dp[m][n];
         }
     };
