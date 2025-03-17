@@ -36,8 +36,39 @@ using pll = pair<ll, ll>;
 #define dbg(...) 42
 #endif
 
+int msb(int n){ return (31 - __builtin_clz(n)); }
+
 void solve(){
+    int n, q;
+    cin>>n>>q;
+    vi a(n);
+    lop(i, n) cin>>a[i];
     
+    vi sx(n); sx[0] = a[0]; //prefix xor
+    lopp(i, n) sx[i] = sx[i - 1]^a[i];
+    vvi ind(n, vi(32, -1)); //largest index with msb greater than equal to it before index j
+    lop(i, n){
+        lop(j, 32){
+            if(msb(a[i]) >= j) ind[i][j] = i;
+            else if(i > 0) ind[i][j] = ind[i - 1][j];
+        }
+    }
+    // dbg(ind);
+    
+    while(q--){
+        int x; cin>>x;
+        int indx = n - 1;
+        while(indx >= 0 && x > 0){
+            int nxt = ind[indx][msb(x)];
+            x ^= sx[indx]^sx[nxt];
+            indx = nxt;
+            if(nxt < 0 || x < a[nxt]) break;
+            x ^= a[nxt];
+            indx--;
+        }
+        cout<<(n - indx - 1)<<sp;
+    }
+    cout<<nl;
 }
 
 int main(){

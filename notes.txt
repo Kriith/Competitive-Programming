@@ -1,0 +1,69 @@
+for interactive qs : use cout<<flush after every cout
+
+Some properties of bitwise operations:
+
+    a|b = a⊕b + a&b
+    a⊕(a&b) = (a|b)⊕b
+    b⊕(a&b) = (a|b)⊕a
+    (a&b)⊕(a|b) = a⊕b
+
+Addition:
+
+    a+b = a|b + a&b
+    a+b = a⊕b + 2(a&b)
+
+Subtraction:
+
+    a-b = (a⊕(a&b))-((a|b)⊕a)
+    a-b = ((a|b)⊕b)-((a|b)⊕a)
+    a-b = (a⊕(a&b))-(b⊕(a&b))
+    a-b = ((a|b)⊕b)-(b⊕(a&b))
+
+binary exponentation algorithm : 
+ll binpow(ll a, ll b, ll m) {
+    a %= m;
+    ll res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a % m;
+        a = a * a % m;
+        b >>= 1;
+    }
+    return res;
+}
+
+quicksort : 
+partition function when pivot is randomized -
+    - swap pivot posn with first element for ease
+    - have two pointer left and right
+    - inc left until you find an element greater than pivot
+    - dec right until you find an element smaller than pivot
+    - exchange them and continue this
+    - stop when right < left
+    - position of pivot is at index of right
+code for partition : 
+        auto partition = [&](int left, int right)->int{
+                int pivot = nums[right], index = left - 1;
+                for(int i = left; i < right; i++){
+                    if(nums[i] < pivot){
+                        index++;
+                        swap(nums[i], nums[index]);
+                    }
+                }
+                index++;
+                swap(nums[index], nums[right]);
+                return index;
+            };
+pseudocode for quicksort : 
+quicksort(l, r){
+    if(l < r){
+        int p = rand()%(r - l + 1) + l;
+        swap(p, r);
+        m = part(l, r)
+        quicksort(l, m)
+        quicksort(m+1, r)
+    }
+}
+
+msb of a number : 1<<(31 - __builtin_clz(n)) 
+__builtin_clz counts number of leading zeros

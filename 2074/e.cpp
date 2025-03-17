@@ -37,7 +37,22 @@ using pll = pair<ll, ll>;
 #endif
 
 void solve(){
+    int n;
+    cin>>n;
     
+    vi a = {1, 2, 3};
+    int t = 0;
+    while(1){
+        cout<<"? "<<a[0]<<sp<<a[1]<<sp<<a[2]<<nl;
+        cout<<flush;
+        cin>>t;
+        if(t == -1) exit(1);
+        if(t == 0) break;
+        int x = rand()%3;
+        a[x] = t;
+    }
+    cout<<"! "<<a[0]<<sp<<a[1]<<sp<<a[2]<<nl;
+    cout<<flush;
 }
 
 int main(){
