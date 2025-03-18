@@ -67,3 +67,14 @@ quicksort(l, r){
 
 msb of a number : 1<<(31 - __builtin_clz(n)) 
 __builtin_clz counts number of leading zeros
+
+custom comparator for sort, or priority queue
+struct cmp{
+    bool operator()(pair<int, int> p1, pair<int, int> p2){
+        if(p1.second == p2.second) return p1.first < p2.first;
+        return p1.second > p2.second;
+    }
+};
+logic : p1.second > p2.second makes the priority queue a min heap priority queue, i.e top element is min
+normal priority queue is max heap
+for typical min heap priority queue use greater<int> as comparator
