@@ -62,28 +62,29 @@ void solve(){
     lop(i, n) cin>>b[i];
     lop(i, n) cin>>c[i];
 
-    vector<pair<int, int>> bugs(m);
+    vector<pair<int, int>> bugs(m); //stores bugs and their original index
     lop(i, m) bugs[i] = {a[i], i};
-    sort(all(bugs), cmp());
-    vvi std(n, vi(3));
+    sort(all(bugs), cmp());         //sorting by complexity decreasing
+    vvi std(n, vi(3));              //stores students skill, price and original index
     lop(i, n) std[i] = {b[i], c[i], i + 1};
-    sort(all(std), skill());
-    dbg(std, bugs);
+    sort(all(std), skill());        //sorting by students' skill decreasing
+    // dbg(std, bugs);
 
     vi ans;
     auto check = [&](int t)->bool{
         vi currans(m);
-        int cost = 0, ind = 0, i = 0;
-        priority_queue<vi, vvi, price> pq;
+        ll cost = 0;
+        int ind = 0, i = 0;
+        priority_queue<vi, vvi, price> pq;  //min heap pq sorting by students' price
         while(ind < m){
-            for(;i < n; i++){
-                if(std[i].front() < bugs[ind].ff) break;
+            for(;i < n; i++){               //loop which adds students to pq if they can solve the problem bugs[ind]
+                if(std[i][0] < bugs[ind].ff) break;
                 pq.push(std[i]);
             }
             if(pq.empty()) return false;
-            loop(j, ind, min(ind + t, m)) {currans[bugs[j].ss] = pq.top().back(); dbg(j, bugs[j].ss);}
-            dbg(currans, pq.top(), ind, t);
-            cost += pq.top()[1], ind += t;
+            loop(j, ind, min(ind + t, m)) currans[bugs[j].ss] = pq.top()[2]; 
+            // dbg(currans, pq.top(), ind, t);
+            cost += pq.top()[1], ind += t;  //if student can solve bugs[ind], it can solve next t problems too 
             pq.pop();
         }
         if(cost <= s) ans = currans;
