@@ -78,3 +78,16 @@ struct cmp{
 logic : p1.second > p2.second makes the priority queue a min heap priority queue, i.e top element is min
 normal priority queue is max heap
 for typical min heap priority queue use greater<int> as comparator
+
+dp : recursive soln mostly use top down, iterative uses bottom up
+pull dp : "pull" ans from prev dp soln
+push dp : "push" ans to next dp soln
+recursive can only be pull dp
+order of iteration doesn't matter in recursive as we compute the ans we want
+it matters in an iterative pull dp 
+solving approach : solve it brute force/recursively, break it into bits
+states are the variables used in the dp/recursive function
+you have to store the states, so a 2d dp has 2 states
+transition is the dp/recursive function that finds a value using diff states
+if recursive soln is not obv : pull the state/transitions out of problem statement
+every 2d dp problem can be thought of as a grid problem, easier to visualize
