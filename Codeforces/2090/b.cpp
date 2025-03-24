@@ -41,53 +41,28 @@ void solve(){
     cin>>n>>m;
     vector<vector<char>> a(n, vector<char>(m));
     lop(i, n) lop(j, m) cin>>a[i][j];
-    // dbg(a);
-    // cout<<a[n-1][m-1];
 
-    lopp(i, n){
-        lopp(j, m){
-            //no ones left or top of an one
-            if(a[i][j] == '1' && a[i-1][j] == '0' && a[i][j-1] == '0'){ 
-                cout<<"NO\n"; 
-                return; 
-            }
-        }
-    }
-    // lopp(i, n){
-    //     if(a[i][0] == '1') continue;
-    //     lopp(j, m){
-    //         if(a[i][j] == '1' && a[i-1][j] == '0'){
-    //             cout<<"NO\n";
-    //             return;
-    //         }
-    //     }
-    // }
-    // lopp(j, m){
-    //     if(a[0][j] == '1') continue;
-    //     lopp(i, n){
-    //         if(a[i][j] == '1' && a[i][j-1] == '0'){
-    //             cout<<"NO\n";
-    //             return;
-    //         }
-    //     }
-    // }
-    lopp(i, n){
-        bool flg = 0;
+    bool flg1 = 0, flg2 = 0;
+    lop(i, n){
         lop(j, m){
-            if(a[i][j] == '0') flg = 1;
-            if(flg && a[i][j] == '1' && a[i-1][j] == '0'){
-                cout<<"NO\n";
-                return;
-            }
-        }
-    }
-    lopp(j, m){
-        bool flg = 0;
-        lop(i, n){
-            if(a[i][j] == '0') flg = 1;
-            if(flg && a[i][j] == '1' && a[i][j-1] == '0'){
-                cout<<"NO\n";
-                return;
+            if(a[i][j] == '1'){
+                flg1 = flg2 = 0;
+                lop(k, i){
+                    if(a[k][j] == '0'){
+                        flg1 = 1;
+                        break;
+                    }
+                }
+                lop(k, j){
+                    if(a[i][k] == '0'){
+                        flg2 = 1;
+                        break;
+                    }
+                }
+                if(flg1 && flg2){
+                    cout<<"NO\n";
+                    return;
+                }
             }
         }
     }

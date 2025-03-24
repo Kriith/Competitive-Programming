@@ -91,3 +91,8 @@ you have to store the states, so a 2d dp has 2 states
 transition is the dp/recursive function that finds a value using diff states
 if recursive soln is not obv : pull the state/transitions out of problem statement
 every 2d dp problem can be thought of as a grid problem, easier to visualize
+
+neat trick to find 4-adjacent elements using a loop :
+int df[] = {0, 1, 0, -1, 0}
+int nx = x + df[i], ny = y + df[i+1] 
+loop from i = 0 to i = 3;
