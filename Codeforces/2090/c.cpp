@@ -7,6 +7,10 @@ using vi = vector<int>;
 using vll = vector<long long>;
 using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
+using vc = vector<char>;
+using vvc = vector<vector<char>>;
+using vb = vector<bool>;
+using vvb = vector<vector<bool>>;
 using mint = map<int, int>;
 using mll = map<ll, ll>;
 using pi = pair<int, int>;
@@ -36,49 +40,32 @@ using pll = pair<ll, ll>;
 #define dbg(...) 42
 #endif
 
-struct cmp{
-    bool operator()(pi p1, pi p2){
-        if(p1.ff + p1.ss == p2.ff + p2.ss) return p1.ff < p2.ff;
-        return (p1.ff + p2.ss) > (p2.ff + p2.ss);
-    }
-};
 
 void solve(){
-    int n;
-    cin>>n;
-    vi a(n);
-    lop(i, n) cin>>a[i];
-
-    int nn = (int)(sqrt(n)) + 1;
-    vvi space(nn, vi(nn, 4));
-    priority_queue<pi, vector<pi>, cmp> empty, unoccupied;
-    // int emx = 0, emy = 0, unx = 0, uny = 0;
-    lop(i, nn){
-        lop(j, nn){
-            dbg(i, j, nn);
-            empty.push({i, j});
-            unoccupied.push({i, j});
-            
-        }
-    }
-    // dbg(space);
-    lop(i, n){
-        int x, y;
-        if(a[i] == 0){
-            x = empty.top().ff*3 + 1, y = empty.top().ff*3 + 1;
-            space[x][y]--;
-            empty.pop();
+    int n; cin>>n;
+    int x0 = 1, y0 = 1, x1 = 1, y1 = 2;
+    while(n--){
+        int t; cin>>t;
+        int s1 = x0+y0, s2 = x1 + y1;
+        if(x1%3 == 2 && y1%3 == 2) s2 += 2;
+        if(t == 0 || (s1 < s2)){
+            cout<<x0<<sp<<y0<<nl;
+            if(y0 > 1) x0 += 3, y0 -= 3;
+            else y0 = x0 + 3, x0 = 1;
         }
         else{
-            pi p = unoccupied.top();
-            if(space[p.ff][p.ss] == 4) x = p.ff*3+1, y = p.ss*3+1;
-            else if(space[p.ff][p.ss] == 3) x = p.ff*3 + 2, y = p.ss*3+1;
-            else if(space[p.ff][p.ss] == 2) x = p.ff*3 + 1, y = p.ss*3+2;
-            else x = p.ff*3 + 2, y = p.ss*3+1;
-            space[p.ff][p.ss]--;
-            if(space[p.ff][p.ss] == 0) unoccupied.pop();
+            cout<<x1<<sp<<y1<<nl;
+            pi md = {x1%3, y1%3};
+            if(md == make_pair(1, 2)){
+                if(x1 > 3) x1++, y1 -= 3;
+                else x1++, y1--;
+            }
+            else if(md == make_pair(2, 2)) y1 += 2;
+            else if(md == make_pair(2, 1)){
+                if(y1 > 2) x1 += 2, y1 -= 2;
+                else y1 = x1 + 3, x1 = 1;
+            }
         }
-        cout<<x<<sp<<y<<nl;
     }
 }
 

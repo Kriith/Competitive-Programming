@@ -96,3 +96,25 @@ neat trick to find 4-adjacent elements using a loop :
 int df[] = {0, 1, 0, -1, 0}
 int nx = x + df[i], ny = y + df[i+1] 
 loop from i = 0 to i = 3;
+
+set operations : find : s.find(key), for(auto i : s) cout<<i<<endl;
+
+finding prime numbers till n : 
+1-
+void init(int n) {
+    for (int i = 2; i <= n; i++) p[i] = 1;
+    for (int i = 2; i <= n; i++)
+        if (p[i])
+            for (int j = i + i; j <= n; j += i)
+                p[j] = 0;
+}
+2 - 
+bitset<SIZE> p;
+void pre() {
+    for (int i = 2; i < SIZE; i++) {
+        if (!p[i]) {
+            for (int j = i + i; j < SIZE; j += i) p[j] = 1;
+        }
+    }
+    p[1] = 1;
+}

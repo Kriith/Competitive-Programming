@@ -42,38 +42,53 @@ void solve(){
     vector<vector<char>> c(n, vector<char>(m));
     lop(i, n) lop(j, m) cin>>c[i][j];
 
-    int ax = 0, ay = 0;
+    int ax = -1, ay = -1, bx = -1, by = -1;
     lop(i, n){
         lop(j, m){
             if(c[i][j] == 'A'){
                 ax = i, ay = j;
-                break;
+                if(bx >= 0) break;
+            }
+            else if(c[i][j] == 'B'){
+                bx = i, by = j;
+                if(ax >= 0) break;
             }
         }
     }
     int df[] = {0, -1, 0, 1, 0};
-    char step[] = {'L', 'U', 'R', 'D'};
     vector<vector<bool>> marked(n, vector<bool>(m, 0));
     queue<pi> q;
     q.push({ax, ay});
     marked[ax][ay] = 1;
-    vvi dir(n, vi(m));
-    bool flg = 0;
+    vvi dir(n, vi(m, -1));
+    // bool flg = 0;
     while(!q.empty()){
         lop(i, 4){
             int x = q.front().ff + df[i], y = q.front().ss + df[i+1];
             if(x < 0 || x >= n || y < 0 || y >= m || c[x][y] == '#' || c[x][y] == 'A' || marked[x][y])
-                continue;
+            continue;
             marked[x][y] = 1;
             dir[x][y] = i;
             if(c[x][y] == '.') q.push({x, y});
-            else {flg = 1; break;}
+            else break;
         }
-        if(flg) break;
+        if(marked[bx][by]) break;
         q.pop();
     }
-    if(!flg){ cout<<"NO\n"; return; }
-    
+    // dbg(dir);
+    if(!marked[bx][by]){ cout<<"NO\n"; return; }
+    int i = bx, j = by;
+    char step[] = {'L', 'U', 'R', 'D'};
+    string ans = "";
+    while(c[i][j] != 'A'){
+        // dbg(i, j, ans, dir[i][j], df[dir[i][j]], df[dir[i][j] + 1]);
+        int t = dir[i][j];
+        ans.push_back(step[t]);
+        i -= df[t]; j -= df[t + 1];
+        // dbg(i, j, ans);
+    }
+    reverse(all(ans));
+    cout<<"YES\n"<<ans.size()<<nl<<ans;
 }
 
 int main(){
