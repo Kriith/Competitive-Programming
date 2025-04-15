@@ -7,6 +7,10 @@ using vi = vector<int>;
 using vll = vector<long long>;
 using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
+using vc = vector<char>;
+using vvc = vector<vector<char>>;
+using vb = vector<bool>;
+using vvb = vector<vector<bool>>;
 using mint = map<int, int>;
 using mll = map<ll, ll>;
 using pi = pair<int, int>;
@@ -36,31 +40,27 @@ using pll = pair<ll, ll>;
 #define dbg(...) 42
 #endif
 
-vector<bool> prime(1e5+1, 1);
-
-void getprimes(){
-    loop(i, 2, 1e5+1){
-        if(prime[i]){
-            for(int j = 2*i; j < 1e5 + 1; j += i) prime[j] = 0;
+void solve(){
+    int n, m; 
+    cin>>n>>m;
+    vvi a(n+1);
+    lop(i, m){
+        int x, y;
+        cin>>x>>y;
+        a[x].pb(y);
+        a[y].pb(x);
+    }
+    queue<int> q;
+    lop(i, n){
+        if(!a[i].empty()) q.push(i);
+    }
+    vb marked(n, 0);
+    while(!q.empty()){
+        int i = q.front();
+        for(auto j : a[i]){
+            if()
         }
     }
-    prime[1] = prime[0] = 0;
-}
-
-void solve(){
-    int n; 
-    cin>>n;
-    int l = max(n/3, 1), r = ceil(2.0*n/3.0) + 1, p = -1;
-    loop(i, l, r){
-        if(prime[i]){ p = i; break; }
-    }
-    dbg(l, r, p);
-    cout<<p<<sp;
-    lopp(i, max(n - p + 1, p)){
-        if(p - i > 0) cout<<(p-i)<<sp;
-        if(p + i <= n) cout<<(p+i)<<sp;
-    }
-    cout<<nl;
 }
 
 int main(){
@@ -71,8 +71,7 @@ int main(){
     freopen("C:/Users/HP/Desktop/Competitive Programming/output.txt", "w", stdout);
 #endif
     ll t = 1;
-    cin>>t; 
-    getprimes();
+    // cin>>t; 
     while(t--)
         solve();
     return 0;

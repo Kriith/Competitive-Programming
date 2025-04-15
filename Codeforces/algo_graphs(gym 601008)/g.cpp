@@ -7,6 +7,10 @@ using vi = vector<int>;
 using vll = vector<long long>;
 using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
+using vc = vector<char>;
+using vvc = vector<vector<char>>;
+using vb = vector<bool>;
+using vvb = vector<vector<bool>>;
 using mint = map<int, int>;
 using mll = map<ll, ll>;
 using pi = pair<int, int>;
@@ -36,31 +40,37 @@ using pll = pair<ll, ll>;
 #define dbg(...) 42
 #endif
 
-vector<bool> prime(1e5+1, 1);
-
-void getprimes(){
-    loop(i, 2, 1e5+1){
-        if(prime[i]){
-            for(int j = 2*i; j < 1e5 + 1; j += i) prime[j] = 0;
+void solve(){
+    int n, m, H;
+    cin>>n>>m>>H;
+    vb h(n+1, 0);
+    vvi adj(n+1);
+    lop(i, H){
+        int x; cin>>x;
+        h[x] = 1;
+    }
+    lop(i, n){
+        int u, v, w;
+        adj[u].pb({v, w});
+        adj[v].pb({u, w});
+    }
+    //flag method, insert flag into djikstra set
+    vvll dist(n+1, vll(2, LONG_LONG_MAX));  //2d array, when on horse and not on horse
+    int prevh = 0, currh = 0;
+    set<ll> s;
+    s.insert({0, 1, 0});
+    while(!s.empty()){
+        auto i = s.begin();
+        s.erase(s.begin());
+        currh = prevh || ((*i)[2] == 1);
+        
+        for(auto j : adj[(*i)[0]]){
+            if(dist[][currh] > dist[][prevh] + )
         }
     }
-    prime[1] = prime[0] = 0;
-}
 
-void solve(){
-    int n; 
-    cin>>n;
-    int l = max(n/3, 1), r = ceil(2.0*n/3.0) + 1, p = -1;
-    loop(i, l, r){
-        if(prime[i]){ p = i; break; }
-    }
-    dbg(l, r, p);
-    cout<<p<<sp;
-    lopp(i, max(n - p + 1, p)){
-        if(p - i > 0) cout<<(p-i)<<sp;
-        if(p + i <= n) cout<<(p+i)<<sp;
-    }
-    cout<<nl;
+    //parallel graph method, make parallel graph whose nodes are connected at h[i] with 0 weight
+
 }
 
 int main(){
@@ -72,7 +82,6 @@ int main(){
 #endif
     ll t = 1;
     cin>>t; 
-    getprimes();
     while(t--)
         solve();
     return 0;

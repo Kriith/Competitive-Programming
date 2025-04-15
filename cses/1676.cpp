@@ -7,6 +7,10 @@ using vi = vector<int>;
 using vll = vector<long long>;
 using vvi = vector<vector<int>>;
 using vvll = vector<vector<ll>>;
+using vc = vector<char>;
+using vvc = vector<vector<char>>;
+using vb = vector<bool>;
+using vvb = vector<vector<bool>>;
 using mint = map<int, int>;
 using mll = map<ll, ll>;
 using pi = pair<int, int>;
@@ -36,31 +40,54 @@ using pll = pair<ll, ll>;
 #define dbg(...) 42
 #endif
 
-vector<bool> prime(1e5+1, 1);
+struct dsu{
+    int t, sz;
+    vi p, rank;
 
-void getprimes(){
-    loop(i, 2, 1e5+1){
-        if(prime[i]){
-            for(int j = 2*i; j < 1e5 + 1; j += i) prime[j] = 0;
-        }
+    dsu(int n){
+        t = n;
+        p.resize(t + 1, 0);
+        lopp(i, t + 1) p[i] = i;
+        rank.resize(t + 1, 1);
+        sz = 1;
     }
-    prime[1] = prime[0] = 0;
-}
+
+    int find(int x){
+        // dbg(p);
+        if(p[x] != x) p[x] = find(p[x]);
+        return p[x];
+    }
+
+    void merge(int x, int y){
+        // dbg(x, y);
+        // x = find(x);
+        // y = find(y);
+        if(x == y) return;
+        if(rank[x] > rank[y])
+            p[y] = x, rank[x] += rank[y];
+        else p[x] = y, rank[y] += rank[x];
+        // dbg(x, y, rank[x], rank[y], sz);
+        sz = max(max(rank[x], rank[y]), sz);
+    }
+};
 
 void solve(){
-    int n; 
-    cin>>n;
-    int l = max(n/3, 1), r = ceil(2.0*n/3.0) + 1, p = -1;
-    loop(i, l, r){
-        if(prime[i]){ p = i; break; }
+    int n, m;
+    cin>>n>>m;
+    vi a(m), b(m);
+    lop(i, m) cin>>a[i]>>b[i];
+
+    dsu ds(n);
+    int components = n;
+    lop(i, m){
+        int x = ds.find(a[i]), y = ds.find(b[i]);
+        if(x != y){
+            // dbg(a[i], b[i], x, y);
+            components--;
+            ds.merge(x, y);
+        }
+        cout<<components<<sp<<ds.sz<<nl;
     }
-    dbg(l, r, p);
-    cout<<p<<sp;
-    lopp(i, max(n - p + 1, p)){
-        if(p - i > 0) cout<<(p-i)<<sp;
-        if(p + i <= n) cout<<(p+i)<<sp;
-    }
-    cout<<nl;
 }
 
 int main(){
@@ -71,8 +98,7 @@ int main(){
     freopen("C:/Users/HP/Desktop/Competitive Programming/output.txt", "w", stdout);
 #endif
     ll t = 1;
-    cin>>t; 
-    getprimes();
+    // cin>>t; 
     while(t--)
         solve();
     return 0;

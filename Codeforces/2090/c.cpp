@@ -46,24 +46,32 @@ void solve(){
     int x0 = 1, y0 = 1, x1 = 1, y1 = 2;
     while(n--){
         int t; cin>>t;
-        int s1 = x0+y0, s2 = x1 + y1;
-        if(x1%3 == 2 && y1%3 == 2) s2 += 2;
-        if(t == 0 || (s1 < s2)){
+        if(t == 0 || x0 + y0 < x1 + y1 + 2*(x1%3 == 2 && y1%3 == 2)){
             cout<<x0<<sp<<y0<<nl;
             if(y0 > 1) x0 += 3, y0 -= 3;
             else y0 = x0 + 3, x0 = 1;
         }
         else{
             cout<<x1<<sp<<y1<<nl;
-            pi md = {x1%3, y1%3};
-            if(md == make_pair(1, 2)){
-                if(x1 > 3) x1++, y1 -= 3;
-                else x1++, y1--;
-            }
-            else if(md == make_pair(2, 2)) y1 += 2;
-            else if(md == make_pair(2, 1)){
-                if(y1 > 2) x1 += 2, y1 -= 2;
+            if(y1 == 1){ 
+                if(x1 == 1) y1++; 
                 else y1 = x1 + 3, x1 = 1;
+                continue; 
+            }
+            pi md = {x1%3, y1%3};
+            if(md == make_pair(1, 2)) 
+                x1++, y1--;
+            else if(md == make_pair(2, 1)){
+                if(y1 == 1){
+                    y1 = x1 + 3, x1 = 1;
+                    x1 ++, y1 -= 2;
+                }
+                else x1 += 2, y1 -= 2;
+            }
+            else if(md == make_pair(2, 2)){
+                if(y1 > 2) y1 -= 3;
+                else y1--;
+                x1 += 2;
             }
         }
     }
