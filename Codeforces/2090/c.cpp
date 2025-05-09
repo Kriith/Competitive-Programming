@@ -40,41 +40,28 @@ using pll = pair<ll, ll>;
 #define dbg(...) 42
 #endif
 
-
 void solve(){
-    int n; cin>>n;
-    int x0 = 1, y0 = 1, x1 = 1, y1 = 2;
+    int n;
+    cin>>n;
+    set<vll> s1, s2;
+    s1.insert({2, 1, 1});
     while(n--){
-        int t; cin>>t;
-        if(t == 0 || x0 + y0 < x1 + y1 + 2*(x1%3 == 2 && y1%3 == 2)){
-            cout<<x0<<sp<<y0<<nl;
-            if(y0 > 1) x0 += 3, y0 -= 3;
-            else y0 = x0 + 3, x0 = 1;
+        dbg(s1, s2);
+        int q; cin>>q;
+        int x, y;
+        if(q && s2.size() && ((*s2.begin())[0] < (*s1.begin())[0])){
+            x = (*s2.begin())[1], y = (*s2.begin())[2];
+            s2.erase(s2.begin());
         }
         else{
-            cout<<x1<<sp<<y1<<nl;
-            if(y1 == 1){ 
-                if(x1 == 1) y1++; 
-                else y1 = x1 + 3, x1 = 1;
-                continue; 
-            }
-            pi md = {x1%3, y1%3};
-            if(md == make_pair(1, 2)) 
-                x1++, y1--;
-            else if(md == make_pair(2, 1)){
-                if(y1 == 1){
-                    y1 = x1 + 3, x1 = 1;
-                    x1 ++, y1 -= 2;
-                }
-                else x1 += 2, y1 -= 2;
-            }
-            else if(md == make_pair(2, 2)){
-                if(y1 > 2) y1 -= 3;
-                else y1--;
-                x1 += 2;
-            }
+            x = (*s1.begin())[1], y = (*s1.begin())[2];
+            s1.erase(s1.begin());
+            s1.insert({{x+y+3, x+3, y}, {x+y+3, x, y+3}});
+            s2.insert({{x+y+1, x+1, y}, {x+y+1, x, y+1}, {x+y+4, x+1, y+1}});
         }
+        cout<<x<<sp<<y<<nl;
     }
+    return;
 }
 
 int main(){
