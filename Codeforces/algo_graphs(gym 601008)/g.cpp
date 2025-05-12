@@ -41,36 +41,108 @@ using pll = pair<ll, ll>;
 #endif
 
 void solve(){
-    int n, m, H;
-    cin>>n>>m>>H;
-    vb h(n+1, 0);
-    vvi adj(n+1);
-    lop(i, H){
+    int n, m, h;
+    cin>>n>>m>>h;
+    vll horses(n+1, 0);
+    lop(i, h){
         int x; cin>>x;
-        h[x] = 1;
+        horses[x] = 1;
     }
-    lop(i, n){
+    vector<vvll> adj(2*n+1);
+    lop(i, m){
         int u, v, w;
+        cin>>u>>v>>w;
+        // dbg(u, v, w, n+u, n+w);
         adj[u].pb({v, w});
         adj[v].pb({u, w});
+        adj[n+u].pb({n+v, w/2});
+        adj[n+v].pb({n+u, w/2});
     }
-    //flag method, insert flag into djikstra set
-    vvll dist(n+1, vll(2, LONG_LONG_MAX));  //2d array, when on horse and not on horse
-    int prevh = 0, currh = 0;
-    set<ll> s;
-    s.insert({0, 1, 0});
+    lopp(i, n+1){
+        if(horses[i] > 0)
+            adj[i].pb({n+i, 0});
+    }
+    // dbg(adj);
+    vll dist1(2*n+1, LONG_LONG_MAX), dist2(2*n+1, LONG_LONG_MAX);
+    set<vll> s;
+    s.insert({0, 1});
+    dist1[1] = 0, dist2[n] = 0;
     while(!s.empty()){
-        auto i = s.begin();
+        vll t = *s.begin();
         s.erase(s.begin());
-        currh = prevh || ((*i)[2] == 1);
-        
-        for(auto j : adj[(*i)[0]]){
-            if(dist[][currh] > dist[][prevh] + )
+        if(t[0] > dist1[t[1]]) continue;
+        for(auto it : adj[t[1]]){
+            if(t[0] + it[1] < dist1[it[0]]){
+                dist1[it[0]] = t[0] + it[1];
+                s.insert({t[0] + it[1], it[0]});
+            }
         }
     }
+    // dbg(dist1);
+    s.clear();
+    s.insert({0, n});
+    while(!s.empty()){
+        vll t = *s.begin();
+        s.erase(s.begin());
+        if(t[0] > dist2[t[1]]) continue;
+        for(auto it : adj[t[1]]){
+            if(t[0] + it[1] < dist2[it[0]]){
+                dist2[it[0]] = t[0] + it[1];
+                s.insert({t[0] + it[1], it[0]});
+            }
+        }
+    }
+    // dbg(dist2);
+    ll ans = LONG_LONG_MAX;
+    lopp(i, n+1)
+    ans = min(ans, max(min(dist1[i], dist1[n+i]), min(dist2[i], dist2[n+i])));
+    if(ans == LONG_LONG_MAX) cout<<-1<<nl;
+    else cout<<ans<<nl;
 
-    //parallel graph method, make parallel graph whose nodes are connected at h[i] with 0 weight
+    //second method
 
+    /*
+    vector<int> dist1(n+1, __LONG_LONG_MAX__), dist2(n+1, __LONG_LONG_MAX__);
+    set<vector<int>> s;
+    s.insert({0, 1, troppas[1]});
+    while(!s.empty()){
+        vector<int> t = *s.begin();
+        s.erase(s.begin());
+        for(auto it : adj[t[1]]){
+            int dist = it[1];
+            if(t[2] > 0) dist /= 2;
+            dist += t[0];
+            int halve = max(t[2], troppas[it[0]]);
+            if(dist < dist1[it[0]]){
+                dist1[it[0]] = dist;
+                s.insert({dist, it[0], halve});
+            }
+        }
+    }
+    s.clear();
+    s.insert({0, n, troppas[n]});
+    while(!s.empty()){
+        vector<int> t = *s.begin();
+        s.erase(s.begin());
+        for(auto it : adj[t[1]]){
+            int dist = it[1];
+            if(t[2] > 0) dist /= 2;
+            dist += t[0];
+            int halve = max(t[2], troppas[it[0]]);
+            if(dist < dist2[it[0]]){
+                dist2[it[0]] = dist;
+                s.insert({dist, it[0], halve});
+            }
+        }
+    }
+    int ans = __LONG_LONG_MAX__;
+    dist1[0] = dist2[n] = 0;
+    for(int i = 1; i <= n; i++){
+        ans = min(ans, max(dist1[i], dist2[i]));
+    }
+    if(ans == __LONG_LONG_MAX__) return -1;
+    return ans
+    */
 }
 
 int main(){

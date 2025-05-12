@@ -121,7 +121,8 @@ void pre() {
 
 struct dsu{
     int n;
-    vi p, rank;
+    vi p;
+    vi rank;
 
     dsu(int n){
         this.n = n;
@@ -142,6 +143,46 @@ struct dsu{
         if(rank[x] > rank[y])
             p[y] = x, rank[x]++;
         else p[x] = y, rank[y]++;
+    }
+};
+
+struct dsu {
+    // When data[x] < 0, x is a root and -data[x] is its tree size. When data[x] >= 0, data[x] is x's parent.
+    vector<int> data;
+    int components = 0;
+    //default arg -1
+    dsu(int n = -1) {
+        if (n >= 0)
+            init(n);
+    }
+ 
+    void init(int n) {
+        data.assign(n + 1, -1);
+        components = n;
+    }
+ 
+    int find(int x) {
+        return data[x] < 0 ? x : data[x] = find(data[x]);
+    }
+ 
+    int get_size(int x) {
+        return -data[find(x)];
+    }
+ 
+    bool merge(int x, int y) {
+        x = find(x);
+        y = find(y);
+ 
+        if (x == y)
+            return false;
+ 
+        if (-data[x] < -data[y])
+            swap(x, y);
+ 
+        data[x] += data[y];
+        data[y] = x;
+        components--;
+        return true;
     }
 };
 
@@ -185,3 +226,27 @@ while(!s.empty()){
 }
 typical questions has multiple states in djikstra(refer algo_mashup g)
 so make multiple dimension dist array
+
+recursive lambda function
+
+std::function<int(int, int)> sum;
+
+sum = [term, next, &sum](int a, int b) -> int {
+    if (a > b)
+        return 0;
+    else
+        return term(a) + sum(next(a), b);
+};
+
+function<void(int)> dfs = [&](int t)->void{
+        // dbg(t);
+        marked[t] = 1;
+        curr.pb(t);
+        for(auto it: adj[t]){
+            if(!marked[it]) dfs(it);
+        }
+    };
+
+iota: used to fill a range of elements with increasing values starting from the given initial value
+iota(v.begin(), v.end(), 1)
+only works for those STL containers that support random access using index numbers such as vector, dequeu, etc.
