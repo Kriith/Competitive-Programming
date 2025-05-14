@@ -77,7 +77,7 @@ void solve(){
         visited[t] = 1;
         // curr.pb(t);
         if(!visited[a[t-1]])  return dfs(a[t-1], len+1);
-        else{ 
+        else{
             mxlen = max(mxlen, len + paths[a[t-1]]);
             return len + paths[a[t-1]];
         }

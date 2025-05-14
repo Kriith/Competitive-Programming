@@ -1,0 +1,1 @@
+(dp2[j-value[i]] == LLONG_MAX)?0:dp2[j-value[i]]
