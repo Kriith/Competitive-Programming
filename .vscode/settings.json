@@ -35,7 +35,8 @@
         "string": "cpp",
         "unordered_map": "cpp",
         "string_view": "cpp",
-        "stacktrace": "cpp"
+        "stacktrace": "cpp",
+        "numeric": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

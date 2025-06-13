@@ -275,3 +275,15 @@ for (int i = 1; i <= wt.size(); i++) {
     }
 }
 return dp[W];
+
+detecting cycles in undirected graph:
+bfs, dfs
+
+lower_bound(all(vector), val): returns iterator of element with value not less than val, returns equal val
+
+meet in the middle
+o(2^n/2)*log(2^n/2) = o(n*2^n/2)
+3 steps: 1. partition the array into two
+2. find the sum(or other variable) from all subsets of n/2 -> 2^n/2
+can do this by bitmask or dfs(recursion with choose not choose)
+3. binary search on the 2^n/2 to make it log

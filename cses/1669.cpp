@@ -1,66 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 using ll = long long;
-using ull = unsigned long long;
-using vi = vector<int>;
-using vll = vector<long long>;
-using vvi = vector<vector<int>>;
-using vvll = vector<vector<ll>>;
-using vc = vector<char>;
-using vvc = vector<vector<char>>;
-using vb = vector<bool>;
-using vvb = vector<vector<bool>>;
-using mint = map<int, int>;
-using mll = map<ll, ll>;
-using pi = pair<int, int>;
-using pll = pair<ll, ll>;
-
-#define loop(i, a, b) for(int i = a; i<b; i++)
-#define pool(i, a, b) for(int i = a; i>b; i--)
-#define lop(i, n) for(int i = 0; i<n; i++)
-#define lopp(i, n) for(int i = 1; i<n; i++)
-#define eb emplace_back
-#define ef emplace_front
-#define pb push_back
-#define puf push_front
-#define popb pop_back
-#define popf pop_front
-#define ff first
-#define ss second
-#define nl "\n"
 #define sp " "
-#define mie *min_element
-#define mxe *max_element
-#define all(x) x.begin(), x.end()
-
-#ifndef ONLINE_JUDGE
-#include "C:/Users/HP/Desktop/Competitive Programming/debug.h"
-#else
-#define dbg(...) 42
-#endif
 
 void solve(){
-    int n, m; 
+    int n, m;
     cin>>n>>m;
-    vvi a(n+1);
-    lop(i, m){
+    vector<vector<int>> adj(n+1);
+    for(int i = 0; i < m; i++){
         int x, y;
         cin>>x>>y;
-        a[x].pb(y);
-        a[y].pb(x);
+        adj[x].push_back(y);
+        adj[y].push_back(x);
     }
-    queue<int> q;
-    lop(i, n){
-        if(!a[i].empty()) q.push(i);
-    }
-    vb marked(n, 0);
-    while(!q.empty()){
-        int i = q.front();
-        for(auto j : a[i]){
-            if()
+
+    vector<int> ans;
+    vector<bool> marked(n+1, 0);
+    function<int(int)> dfs = [&](int t)->int{
+        marked[t] = 1;
+        for(auto it: adj[t]){
+            if(!marked[it]) dfs()
         }
-    }
+    };
+
 }
 
 int main(){
