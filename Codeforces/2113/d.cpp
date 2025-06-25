@@ -2,18 +2,20 @@
 using namespace std;
 using ll = long long;
 #define sp " "
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds_set;
+
 
 void solve(){
-    ll n;
+    int n;
     cin>>n;
-    ll l = 1, r = n*n, q = (n*n + 1)/2, ans = 0;
-    while(l <= r){
-        ll m = (l + r)/2, t = 0;
-        for(int i = 1; i <= n; i++) t += min(n, m/i);
-        if(t >= q) ans = m, r = m - 1;
-        else l = m + 1;
-    }
-    cout<<ans;
+    vector<int> a(n), b(n);
+    for(int i = 0; i < n; i++) cin>>a[i];
+    for(int i = 0; i < n; i++) cin>>b[i];
+    pbds_set p;
+    
 }
 
 int main(){
@@ -24,7 +26,7 @@ int main(){
     freopen("C:/Users/HP/Desktop/Competitive Programming/output.txt", "w", stdout);
 #endif
     ll t = 1;
-    // cin>>t; 
+    cin>>t; 
     while(t--)
         solve();
     return 0;

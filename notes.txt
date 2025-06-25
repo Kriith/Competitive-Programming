@@ -68,6 +68,7 @@ quicksort(l, r){
 msb of a number : 1<<(31 - __builtin_clz(n)) 
 __builtin_clz counts number of leading zeros
 
+min heap priority queue: priority_queue <int, vector<int>, greater<int> > pq;
 custom comparator for sort, or priority queue
 struct cmp{
     bool operator()(pair<int, int> p1, pair<int, int> p2){
@@ -280,6 +281,7 @@ detecting cycles in undirected graph:
 bfs, dfs
 
 lower_bound(all(vector), val): returns iterator of element with value not less than val, returns equal val
+upper_bound: returns iterator of the min element greater than the the val
 
 meet in the middle
 o(2^n/2)*log(2^n/2) = o(n*2^n/2)
@@ -287,3 +289,19 @@ o(2^n/2)*log(2^n/2) = o(n*2^n/2)
 2. find the sum(or other variable) from all subsets of n/2 -> 2^n/2
 can do this by bitmask or dfs(recursion with choose not choose)
 3. binary search on the 2^n/2 to make it log
+
+Policy Based Data Structure(pbds):
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds_set;
+typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_multiset;
+typedef tree<pair<int, int>, null_type, less<pair<int, int> >, rb_tree_tag, tree_order_statistics_node_update> ordered_multiset;
+this multiset implementation is used so as to not get errors in find. put index at second value
+to find lower bound search for({val, 0})
+to find the element search for({val, index})
+to find upper bound search for({val, INT_MAX})
+functions of pbds:
+*p.find_by_order(i) : shows value at i'th index
+*p.order_of_key(i) : shows index number of i, even if it is not in the set
+PBDS is an ordered set with access to the indices of the elemnt
