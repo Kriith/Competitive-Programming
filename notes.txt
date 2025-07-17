@@ -305,3 +305,49 @@ functions of pbds:
 *p.find_by_order(i) : shows value at i'th index
 *p.order_of_key(i) : shows index number of i, even if it is not in the set
 PBDS is an ordered set with access to the indices of the elemnt
+
+Kadane's Algorithm: Max Subarray Sum
+t = max(t + arr[i], arr[i]);
+either choose prev sum + arr[i], or start a new subarray from i
+store result separately
+ans = max(t, ans);
+
+minimising sum of maximum subarray splitting into k subarrays:
+do binary search on the maximum sum
+find the number of subarrays less than the sum
+check if that number <= k
+https://leetcode.com/problems/split-array-largest-sum/
+
+sliding window technique for exactly k subarrays of something:
+find number of subarrays with at most k
+subtract it with number of subarrays with at most k-1
+the sliding window will expand rightwards
+to find the number of subarrays with atmost k:
+1. start with l = r = 0
+2. let r expand till the condition lets it to
+3. add r - l to the ans then increment l
+why does this work?
+we are counting number of valid subarrays starting from the lth posn
+so r - l gives the exact number of distinct subarrays starting from l which satsify the condition
+of atmost k something.
+repeat this for k - 1
+https://leetcode.com/problems/binary-subarrays-with-sum/
+
+Merge Sort:
+divide, conquer then merge
+divide: until it cannot be divided no more
+conquer: each subarray is sorted(as initially they are individual elements, when merging we sort them)
+merge: merge subarrays in sorted order
+//merging vectors into arr[l...r]
+while(i < n1 && j < n2){
+    if(L[i] <= R[j]) arr[k] = L[i], i++;
+    else arr[k] = R[j], j++;
+    k++;
+}
+//copy remaining elements of L[] if there are any
+while(i < n1) arr[k] = L[i], k++, i++;
+while(j < n2) arr[k] = R[j], k++, j++;
+
+Tortoise-Hare Method: one pointer goes slow(Tortoise), another fast(Hare)
+eg: finding middle element of linked list
+https://leetcode.com/problems/middle-of-the-linked-list/
