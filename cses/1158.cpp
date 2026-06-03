@@ -1,49 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 using ll = long long;
-using ull = unsigned long long;
-using vi = vector<int>;
-using vll = vector<long long>;
-using vvi = vector<vector<int>>;
-using vvll = vector<vector<ll>>;
-using mint = map<int, int>;
-using mll = map<ll, ll>;
-using pi = pair<int, int>;
-using pll = pair<ll, ll>;
-
-#define loop(i, a, b) for(int i = a; i<b; i++)
-#define pool(i, a, b) for(int i = a; i>b; i--)
-#define lop(i, n) for(int i = 0; i<n; i++)
-#define lopp(i, n) for(int i = 1; i<n; i++)
-#define eb emplace_back
-#define ef emplace_front
-#define pb push_back
-#define puf push_front
-#define popb pop_back
-#define popf pop_front
-#define ff first
-#define ss second
-#define nl "\n"
 #define sp " "
-#define mie *min_element
-#define mxe *max_element
-#define all(x) x.begin(), x.end()
-
-#ifndef ONLINE_JUDGE
-#include "C:/Users/HP/Desktop/Competitive Programming/debug.h"
-#else
-#define dbg(...) 42
-#endif
 
 void solve(){
     int n, x;
     cin>>n>>x;
-    vi h(n), s(n);
-    lop(i, n) cin>>h[i];
-    lop(i, n) cin>>s[i];
+    vector<int> h(n), s(n);
+    for(int i = 0; i < n; i++)
+        cin>>h[i];
+    for(int i = 0; i < n; i++)
+        cin>>s[i];
+
+    // o(n*w) space complexity
+    // vector<vector<int>> dp(n+1, vector<int>(x+1, 0));
+    // for(int i = 1; i <= n; i++){
+    //     for(int j = 0; j <= x; j++){
+    //         int pick = 0, notpick = dp[i-1][j];
+    //         if(j >= h[i-1])
+    //             pick = s[i-1] + dp[i-1][j - h[i-1]];
+    //         dp[i][j] = max(pick, notpick);
+    //     }
+    // }
+    // cout<<dp[n][x];
+
+    // o(w) space complexity
+    vector<int> dp(x+1, 0);
+    for(int i = 0; i < n; i++)
+        for(int j = x; j >= h[i]; j--)
+            dp[j] = max(dp[j], dp[j - h[i]] + s[i]);
     
-    
+    cout<<dp[x];
 }
 
 int main(){

@@ -44,8 +44,18 @@ void solve(){
     // }
 
     //dp approach
-    int dp[5001][5001];
-    
+    int mx = *max_element(a.begin(), a.end());
+    vector<int> dp(mx + 1, INT_MAX);
+    for(int i = 0; i < n; i++) dp[a[i]] = 0;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j <= mx; j++){
+            if(dp[j] < INT_MAX){
+                int g = __gcd(j, a[i]);
+                dp[g] = min(dp[g], dp[j] + 1);
+            }
+        }
+    }
+    cout<<(dp[gcdall] - 1 + n)<<endl;
 }
 
 int main(){
