@@ -1,1 +1,2 @@
 https://leetcode.com/problems/split-array-with-same-average/ (dp bitmask, meet in the middle)
+https://leetcode.com/problems/dice-roll-simulation/ (dp)

@@ -27,6 +27,21 @@ a-b = (a⊕(a&b))-(b⊕(a&b))
 a-b = ((a|b)⊕b)-(b⊕(a&b))
 ```
 
+## Bitset
+
+- ```bitset<n> name;``` where n is the number of bits to allocate.
+- ```bitset<n> name(n)``` or ```bitset<n> name(s)``` is used to dynamically initialize the value using a decimal value ```n``` or string of binary numbers ```s```
+- ```b[i]``` accesses the individual bit at ith index(0th index = LSB).
+- ```b.set(i)``` and ```b.reset(i)``` are used to set or reset bits at ith index.
+- ```b.to_string()``` and ```b.to_ulong()``` converts bitset to string or ulong respectively.
+
+
+## Mathematical Properties for reducing problems
+
+```cpp
+max(a, b) = (a + b + abs(a - b))/2;
+```
+
 ## Binary Exponentation: a^b%m
 
 ```cpp
@@ -1593,3 +1608,68 @@ class MaxStack {
 };
 ```
 Similarly for getmin() in O(1), push ```minEle = 2*x - minEle```
+
+> Taking minimum/maximum of more than 2 elements ```min({v1, v2, v3...})```
+
+## Tries (Prefix/Digital Tree)
+
+- Can insert and search strings in O(n) (n is the length of string), which is faster than BST or hashing
+- Efficient at prefix searching, thus used for auto-complete, spell checking, etc.
+- isWord flag denotes if the character is end of the word
+- No need to store character or string anywhere. Just iterating through the children is enough
+
+### Implementation
+
+```cpp
+class Trie {
+
+struct Node {
+    Node* children [26];
+    bool isWord;
+
+    Node() {
+        for(int i = 0; i < 26; i++) {
+            children[i] = nullptr;
+        }
+        isWord = false;
+    }
+};
+
+Node* root;
+
+public:
+    Trie() {
+        root = new Node();        
+    }
+    
+    void insert(string word) {
+        int n = word.length();
+        Node* curr = root;
+        for(int i = 0; i < n; i++) {
+            int index = word[i] - 'a';
+            if(curr->children[index] == nullptr) {
+                curr->children[index] = new Node();
+            }
+            curr = curr->children[index];
+        }
+        curr->isWord = true;
+    }
+    
+    bool search(string word, bool prefix = false) {
+        int n = word.length();
+        Node* curr = root;
+        for(int i = 0; i < n; i++) {
+            int index = word[i] - 'a';
+            if(curr->children[index] == nullptr) {
+                return false;
+            }
+            curr = curr->children[index];
+        }
+        return (prefix || curr->isWord);
+    }
+    
+    bool startsWith(string prefix) {
+        return search(prefix, true);
+    }
+};
+ ```
