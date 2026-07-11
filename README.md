@@ -4,16 +4,16 @@ The goal of this repository is to serve as a collection of my solutions, algorit
 
 ## Repository Structure
 
-```text
+```.txt
 .
-├── [Codeforces](./Codeforces/)
-├── [LeetCode](./LeetCode/)
-├── [CSES](./CSES/)
-├── [AtCoder](./AtCoder/)
+├── Codeforces/
+├── LeetCode/
+├── CSES/
+├── AtCoder/
 ├── ...
-├── [notes.md](./notes.md)
-├── [revision.txt](./revision.txt)
-└── [macro.cpp](./macro.cpp)
+├── notes.md
+├── revision.txt
+└── macro.cpp
 ```
 
 * Platform folders contain solutions to individual problems.
