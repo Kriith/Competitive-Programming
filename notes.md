@@ -1,6 +1,6 @@
 # Notes for Competitive Programming
 
->for interactive qs : use ```cout<<flush``` after every cout
+> for interactive qs : use `cout<<flush` after every cout
 
 ## Bitwise Operations Properties
 
@@ -29,12 +29,11 @@ a-b = ((a|b)⊕b)-(b⊕(a&b))
 
 ## Bitset
 
-- ```bitset<n> name;``` where n is the number of bits to allocate.
-- ```bitset<n> name(n)``` or ```bitset<n> name(s)``` is used to dynamically initialize the value using a decimal value ```n``` or string of binary numbers ```s```
-- ```b[i]``` accesses the individual bit at ith index(0th index = LSB).
-- ```b.set(i)``` and ```b.reset(i)``` are used to set or reset bits at ith index.
-- ```b.to_string()``` and ```b.to_ulong()``` converts bitset to string or ulong respectively.
-
+- `bitset<n> name;` where n is the number of bits to allocate.
+- `bitset<n> name(n)` or `bitset<n> name(s)` is used to dynamically initialize the value using a decimal value `n` or string of binary numbers `s`
+- `b[i]` accesses the individual bit at ith index(0th index = LSB).
+- `b.set(i)` and `b.reset(i)` are used to set or reset bits at ith index.
+- `b.to_string()` and `b.to_ulong()` converts bitset to string or ulong respectively.
 
 ## Mathematical Properties for reducing problems
 
@@ -63,12 +62,12 @@ ll binpow(ll a, ll b, ll m) {
 ### Partition function when pivot is randomized
 
 - Swap pivot posn with first element for ease
-- Have two pointer ```left``` and ```right```
-- Increase ```left``` until you find an element greater than ```pivot```
-- Decrease ```right``` until you find an element smaller than ```pivot```
+- Have two pointer `left` and `right`
+- Increase `left` until you find an element greater than `pivot`
+- Decrease `right` until you find an element smaller than `pivot`
 - Exchange them and continue this
-- Stop when ```right < left```
-- Position of ```pivot``` is at index of ```right```
+- Stop when `right < left`
+- Position of `pivot` is at index of `right`
 
 ### Inline Partition Functioon
 
@@ -103,12 +102,12 @@ quicksort(l, r){
 
 ## MSB of a number
 
-```1<<(31 - __builtin_clz(n)) ```
-```__builtin_clz``` counts number of leading zeros.
+`1<<(31 - __builtin_clz(n)) `
+`__builtin_clz` counts number of leading zeros.
 
 ## Min Heap Priority Queue
 
-```priority_queue <T, vector<T>, greater<T>> pq```
+`priority_queue <T, vector<T>, greater<T>> pq`
 
 ### Custom Comparator
 
@@ -123,17 +122,18 @@ struct cmp{
 
 ### Logic
 
-```p1.second > p2.second``` makes the priority queue a min heap priority queue, i.e top element is min
+`p1.second > p2.second` makes the priority queue a min heap priority queue, i.e top element is min
 normal priority queue is max heap.
->For typical min heap priority queue use ```greater<int>``` as comparator
+
+> For typical min heap priority queue use `greater<int>` as comparator
 
 ## Dynamic Programming (DP)
 
-- Recursive soln mostly use top down, iterative uses bottom up  
-- Pull DP: "pull" ans from prev dp soln  
-- Push DP: "push" ans to next dp soln  
-- Recursive can only be pull dp  
-- Order of iteration doesn't matter in recursive as we compute the ans we want, but matters in iterative  
+- Recursive soln mostly use top down, iterative uses bottom up
+- Pull DP: "pull" ans from prev dp soln
+- Push DP: "push" ans to next dp soln
+- Recursive can only be pull dp
+- Order of iteration doesn't matter in recursive as we compute the ans we want, but matters in iterative
 
 ### Solving approach
 
@@ -144,19 +144,20 @@ normal priority queue is max heap.
 - If recursive soln is not obv: pull the state/transitions out of problem statement
 - Every 2d dp problem can be thought of as a grid problem, easier to visualize
 
->Trick to find 4-adjacent elements using a loop
+> Trick to find 4-adjacent elements using a loop
+
 ```cpp
 int df[] = {0, 1, 0, -1, 0}
-int nx = x + df[i], ny = y + df[i+1] 
+int nx = x + df[i], ny = y + df[i+1]
 //loop from i = 0 to i = 3;
 ```
 
 ## Set Operations
 
-- Adding elements: ```s.insert(key);```  
-- Find: ```s.find(key);```  
-- Iterating through elements: ```for(auto i : s) cout<<i<<endl;```  
-- Upper & Lower bound: ```set.upper_bound```, ```set.lower_bound```
+- Adding elements: `s.insert(key);`
+- Find: `s.find(key);`
+- Iterating through elements: `for(auto i : s) cout<<i<<endl;`
+- Upper & Lower bound: `set.upper_bound`, `set.lower_bound`
 
 ## Finding Prime Numbers till n
 
@@ -173,12 +174,13 @@ for (int i = 2; i <= n; i++) {
     }
 }
 ```
-O(n*loglogn) tc, O(n) mc
+
+O(n\*loglogn) tc, O(n) mc
 
 #### Optimisations
 
-1. Run outer loop till root ```n``` only i.e. ```i = 2; i*i <= n```
-same tc(O(n*loglog(rt(n)))), but less operations
+1. Run outer loop till root `n` only i.e. `i = 2; i*i <= n`
+   same tc(O(n\*loglog(rt(n)))), but less operations
 2. Memory optimisations: only store odd numbers as 2 is the only even prime
 
 ### 2 Using Bitset
@@ -198,14 +200,15 @@ void pre() {
 ## iota
 
 - Used to fill a range of elements with increasing values starting from the given initial value
-- ```iota(v.begin(), v.end(), 1)```  
+- `iota(v.begin(), v.end(), 1)`
 - Only works for those STL containers that support random access using index numbers such as vector, dequeu, etc.
 
-## Knapsack DP: 0/1 or choose not choose  
+## Knapsack DP: 0/1 or choose not choose
 
-### Bottom-Up Manner 
+### Bottom-Up Manner
 
-O(n*w) mc  
+O(n\*w) mc
+
 ```cpp
 for (int i = 1; i <= n; i++) {
     for (int j = 0; j <= W; j++) {
@@ -224,7 +227,8 @@ return dp[n][W];
 
 ### Memory optimisation
 
-Taking first i elements, O(n*w) time but O(w) space  
+Taking first i elements, O(n\*w) time but O(w) space
+
 ```cpp
 for (int i = 1; i <= wt.size(); i++) {
  // Starting from back, so that we also have data of previous computation of i-1 items
@@ -237,18 +241,19 @@ return dp[W];
 
 ## Inbuilt binary search functions STL
 
-- ```lower_bound(all(vector), val)```: returns iterator of element with value not less than ```val```, returns equal ```val```  
-- ```upper_bound```: returns iterator of the min element greater than the the ```val```
+- `lower_bound(all(vector), val)`: returns iterator of element with value not less than `val`, returns equal `val`
+- `upper_bound`: returns iterator of the min element greater than the the `val`
 
 ## Meet in the Middle
 
-```O((2^n/2)*log(2^n/2)) = O(n*2^n/2)```
+`O((2^n/2)*log(2^n/2)) = O(n*2^n/2)`
 
-### 3 steps: 
+### 3 steps:
+
 1. Partition the array into two
-2. Find the sum(or other variable) from all subsets of ```n/2``` -> ```2^n/2```
-can do this by bitmask or dfs(recursion with choose not choose)
-3. Binary search on the ```2^n/2``` to make it log
+2. Find the sum(or other variable) from all subsets of `n/2` -> `2^n/2`
+   can do this by bitmask or dfs(recursion with choose not choose)
+3. Binary search on the `2^n/2` to make it log
 
 ```cpp
 vector<ll> getsum(vector<int>& a){
@@ -282,6 +287,7 @@ int meetInMiddle(vector<int> arr, int maxCapacity){
 ## Policy Based Data Structure (PBDS)
 
 PBDS is an ordered set with access to the indices of the element.
+
 ```
 #include<ext/pb_ds/assoc_container.hpp>
 #include<ext/pb_ds/tree_policy.hpp>
@@ -293,27 +299,29 @@ typedef tree<pair<int, int>, null_type, less<pair<int, int> >, rb_tree_tag, tree
 
 This multiset implementation is used so as to not get errors in find. put index at second value.  
 To:
-- find lower bound search for ```({val, 0})```
-- find the element search for ```({val, index})```
-- find upper bound search for ```({val, INT_MAX})``` 
 
-Functions of PBDS:  
-- ```*p.find_by_order(i)```: shows value at ```ith``` index
-- ```*p.order_of_key(i)```: shows index number of ```i```, even if it is not in the set  
+- find lower bound search for `({val, 0})`
+- find the element search for `({val, index})`
+- find upper bound search for `({val, INT_MAX})`
+
+Functions of PBDS:
+
+- `*p.find_by_order(i)`: shows value at `ith` index
+- `*p.order_of_key(i)`: shows index number of `i`, even if it is not in the set
 
 ## Kadane's Algorithm: Max Subarray Sum
 
-- ```t = max(t + arr[i], arr[i]);```  
-- Either choose ```prev_max_sum + arr[i]```, or start a new subarray from ```i```  
-- Store result separately  
-- ```ans = max(t, ans);```  
+- `t = max(t + arr[i], arr[i]);`
+- Either choose `prev_max_sum + arr[i]`, or start a new subarray from `i`
+- Store result separately
+- `ans = max(t, ans);`
 - O(n) tc, O(1) mc
 
 ## Minimising Sum of Maximum Subarray splitting into k Subarrays
 
-- Do binary search on the maximum sum  
-- Find the number of subarrays less than the sum  
-- check if that number <= ```k```  
+- Do binary search on the maximum sum
+- Find the number of subarrays less than the sum
+- check if that number <= `k`
 
 https://leetcode.com/problems/split-array-largest-sum/
 
@@ -321,27 +329,29 @@ https://leetcode.com/problems/split-array-largest-sum/
 
 ### Approach
 
-- Find number of subarrays with at most ```k```  
-- Subtract it with number of subarrays with at most ```k - 1```
+- Find number of subarrays with at most `k`
+- Subtract it with number of subarrays with at most `k - 1`
 - The sliding window will expand rightwards
 
 To find the number of subarrays with atmost k:
-1. Start with ```l = r = 0```
+
+1. Start with `l = r = 0`
 2. Let r expand till the condition lets it to
-3. Add ```r - l``` to the ans then increment ```l```
+3. Add `r - l` to the ans then increment `l`
 
 ### Why does this work?
 
-- We are counting number of valid subarrays starting from the ```lth``` posn
-- So ```r - l``` gives the exact number of distinct subarrays starting from ```l``` which satsify the condition
-of atmost ```k``` something.
+- We are counting number of valid subarrays starting from the `lth` posn
+- So `r - l` gives the exact number of distinct subarrays starting from `l` which satsify the condition
+  of atmost `k` something.
 - Repeat this for `k - 1`
 
 https://leetcode.com/problems/binary-subarrays-with-sum/
 
 ## Merge Sort
 
-Divide, Conquer then Merge  
+Divide, Conquer then Merge
+
 1. Divide: until it cannot be divided no more
 2. Conquer: each subarray is sorted(as initially they are individual elements, when merging we sort them)
 3. Merge: merge subarrays in sorted order
@@ -370,7 +380,7 @@ https://leetcode.com/problems/middle-of-the-linked-list/
 auto bfs = [&](int t)->bool{
     queue<pair<int, int>> q;
     q.push({0, 0});
-    int df[] = {0, -1, 0, 1, 0}; //when traversing 4 adj 
+    int df[] = {0, -1, 0, 1, 0}; //when traversing 4 adj
     vector<vector<bool>> marked(n, vector<bool>(n, 0));
     while(!q.empty()){
         int x = q.front().first, y = q.front().second;
@@ -390,7 +400,7 @@ auto bfs = [&](int t)->bool{
 
 O(V+E) tc, O(V) mc
 
-## Djikstra's Algorithm 
+## Djikstra's Algorithm
 
 ### Implementation using set
 
@@ -416,7 +426,7 @@ while(!s.empty()){
 }
 ```
 
-O(e*logv) tc as we go around all edges and need logV to process, O(v) mc  
+O(e\*logv) tc as we go around all edges and need logV to process, O(v) mc
 
 > When using `set<vector\<int\>>` use `(*s.begin).first`
 
@@ -436,6 +446,7 @@ function<void(int)> dfs = [&](int t)->void{
     }
 };
 ```
+
 O(V+E) tc, O(V) mc
 
 ## Topological (Topo) Sort
@@ -481,7 +492,7 @@ vector<int> topo(vector<int>& adj){
 }
 ```
 
-O(V+E) tc, O(V) mc  
+O(V+E) tc, O(V) mc
 
 > Topo sort is only valid for directed acyclic graph as undirected graph doesn't have any levels  
 > Acyclic is necessary otherwise we will get stack overflow, hence used in cycle detection
@@ -508,7 +519,7 @@ bool dfs(int u, vector<vector<int>>& adj, vector<bool>& vis, vector<bool>& cur){
 }
 ```
 
-Can also be done using ```colour``` instead of ```vis```
+Can also be done using `colour` instead of `vis`
 
 ```cpp
 bool dfs(int t, vector<vector<int>>& adj, vector<short>& colour){
@@ -525,14 +536,15 @@ bool dfs(int t, vector<vector<int>>& adj, vector<short>& colour){
 
 - Shortest Path Algorithm for graphs with negative weights edges
 - Djikstra doesn't work on that as -ve weights makes the algorithm run in an infinite loop
-- Applicable only for directed graphs, but can be used in undirected by making edge ```(1-2) to (1->2, 2->1)```
+- Applicable only for directed graphs, but can be used in undirected by making edge `(1-2) to (1->2, 2->1)`
 - Also used to detect negative weight cycles, but cannot give ans in -ve weight cycle
 
 ### Logic
-- Works on relaxation of ```edges(dist[adj] > dist[curr] + weight)```
-- Only need to do relaxation ```n - 1``` times in worst case
+
+- Works on relaxation of `edges(dist[adj] > dist[curr] + weight)`
+- Only need to do relaxation `n - 1` times in worst case
 - Stop the loop once there are no more relaxations
-- If relaxations occur after ```n - 1``` iteration i.e. on nth iteration then -ve weight cycle is present
+- If relaxations occur after `n - 1` iteration i.e. on nth iteration then -ve weight cycle is present
 
 ### Implementation using edges
 
@@ -614,7 +626,7 @@ while (!q.empty()) {
 return true;
 ```
 
-O(E*V) tc, O(v) mc
+O(E\*V) tc, O(v) mc
 
 ## Floyd-Warshall
 
@@ -622,8 +634,8 @@ Multi-Source Shortest Path Finding Algorithm, i.e., finds shortest path between 
 
 ### Logic
 
-1. ```d[i][j]``` in the kth phase stores the shortest dist from a path that has internal vertices
-only from 1...k-1. so for ```k = 0, d[i][j] = weight(i, j) = inf``` if there is no edge bw them
+1. `d[i][j]` in the kth phase stores the shortest dist from a path that has internal vertices
+   only from 1...k-1. so for `k = 0, d[i][j] = weight(i, j) = inf` if there is no edge bw them
 2. Run this for n phases
 
 ```cpp
@@ -631,7 +643,7 @@ for (int k = 0; k < n; ++k) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             if (d[i][k] < INF && d[k][j] < INF)
-                d[i][j] = min(d[i][j], d[i][k] + d[k][j]); 
+                d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
         }
     }
 }
@@ -641,7 +653,7 @@ O(n^3) tc, O(n^2) mc
 
 ## Minimum Spanning Tree Path (MSTP)
 
-Spanning Tree: Tree which covers all nodes in a graph 
+Spanning Tree: Tree which covers all nodes in a graph
 
 ### Prim's Algorithm
 
@@ -726,7 +738,7 @@ struct dsu{
     }
 
     int find(int x){
-        return data[x] < 0 ? x : data[x] = find(data[x]); 
+        return data[x] < 0 ? x : data[x] = find(data[x]);
     }
 
     int getsize(int x){
@@ -761,7 +773,7 @@ bool dfs(int v) {
         if (color[u] == 0) {
             parent[u] = v;
             if (dfs(u)) return true;
-        } 
+        }
         else if (color[u] == 1){
             cycle_end = v;
             cycle_start = u;
@@ -778,7 +790,7 @@ Function returns true when it finds a cycle.
 
 ## Finding Bridges in Graph: Tarjan's Algorithm
 
-Bridge is the edge which when removed breaks the connectivity of graph, i.e., makes the graph unconnected.  
+Bridge is the edge which when removed breaks the connectivity of graph, i.e., makes the graph unconnected.
 
 ### Logic
 
@@ -789,11 +801,11 @@ Bridge is the edge which when removed breaks the connectivity of graph, i.e., ma
 
 ### Why does this work?
 
-- Lets say 2-3 is bridge where ```tin[2] = 2, low[3] = 3```
+- Lets say 2-3 is bridge where `tin[2] = 2, low[3] = 3`
 - If 1-2 and lets say for arguments sake 1-3 is possible
-- Where ```tin[1] = 1```, then we cannot say 2-3 is a bridge
-- Why? Because when we reach 3, ```low[3]``` will get updated to 1 as it is the lowest
-- So if ```low[to] > tin[u]``` then there is no "back-edge" or path which can connect 'to' to ```u``` because if there had been one, the low[to] would have been updated to that
+- Where `tin[1] = 1`, then we cannot say 2-3 is a bridge
+- Why? Because when we reach 3, `low[3]` will get updated to 1 as it is the lowest
+- So if `low[to] > tin[u]` then there is no "back-edge" or path which can connect 'to' to `u` because if there had been one, the low[to] would have been updated to that
 
 ```cpp
 void dfs(int v, int p = -1){
@@ -810,17 +822,18 @@ void dfs(int v, int p = -1){
     }
 }
 ```
+
 O(V+E) tc, O(V) mc
 
 ## Articulation Point/Cut Vertices
 
-Vertices which when removed makes the graph unconnected are called cut vertices.    
-In bridges we check whether any alternative path existed from curr node to adj node, whereas here we check if any path exist from child to parent node.  
+Vertices which when removed makes the graph unconnected are called cut vertices.  
+In bridges we check whether any alternative path existed from curr node to adj node, whereas here we check if any path exist from child to parent node.
 
 ## Difference from Tarjan's
 
-1. Min of all adj points except parent & visited (from visited it will only update low if ```low > tin[to]```)
-2. If ```(low[to] >= tin[v] && parent != -1) low[to] == tin[v]``` then it is only reachable to curr node but it cannot reach its parent node, so v is an articulation point
+1. Min of all adj points except parent & visited (from visited it will only update low if `low > tin[to]`)
+2. If `(low[to] >= tin[v] && parent != -1) low[to] == tin[v]` then it is only reachable to curr node but it cannot reach its parent node, so v is an articulation point
 3. If parent has multiple children then it is assumed to be articulation point
 
 ```cpp
@@ -842,6 +855,7 @@ void dfs(int node, int parent, vector<int> &vis, int tin[], int low[], vector<in
     if (child > 1 && parent == -1) mark[node] = 1;
 }
 ```
+
 O(V+E) tc, O(V) mc
 
 ## Strongly Connected Components (SCC)
@@ -851,7 +865,7 @@ Two algorithms to find these: Kosaraju & Tarjan.
 
 ### Kosaraju
 
-SCC have every pair of vertices to be mutually reachable so 
+SCC have every pair of vertices to be mutually reachable so
 reversing the edges will not have effect on traversing in an scc
 so components of scc are still reachable to each other even if edges are reversed
 a: store all vertices in order of finishing time
@@ -892,11 +906,13 @@ vector<vector<int>> Kosaraju(vector<vector<int>> edges, int n){
     return ans;
 }
 ```
+
 O(V+E) tc, O(V) mc
 
 ## Binary Tree
 
 ### Data Structure
+
 ```cpp
 struct Node{
     int value;
@@ -936,6 +952,7 @@ vector<int> preorderTraversal(TreeNode* root) {
 #### Iterative
 
 Using Stack, O(n) mc
+
 ```cpp
 vector<int> preorderTraversal(TreeNode* root) {
     vector<int> ans;
@@ -956,6 +973,7 @@ vector<int> preorderTraversal(TreeNode* root) {
 #### Morris, O(1) mc
 
 Connecting the rightmost node(i.e the last node) of the left subtree to right node of current node
+
 ```cpp
 vector<int> preorderTraversal(TreeNode* root) {
     vector<int> ans;
@@ -997,6 +1015,7 @@ vector<int> inorderTraversal(TreeNode* root) {
 #### Iterative
 
 Using Stack, O(n) mc
+
 ```cpp
 vector<int> inorderTraversal(TreeNode* root){
     stack<TreeNode*> st;
@@ -1024,6 +1043,7 @@ vector<int> inorderTraversal(TreeNode* root){
 - Connecting the rightmost node of left subtree to current node
 - If it is already connected then we have already pushed the left subtree to ans
 - Remove the connection
+
 ```cpp
 vector<int> inorderTraversal(TreeNode* root) {
     vector<int> ans;
@@ -1073,6 +1093,7 @@ vector<int> postorderTraversal(TreeNode* root) {
 #### Iterative
 
 Push elements on ans in reverse, i.e. go right, then go left.
+
 ```cpp
 vector<int> postorderTraversal(TreeNode* root) {
     vector<int> ans;
@@ -1090,12 +1111,14 @@ vector<int> postorderTraversal(TreeNode* root) {
     return ans;
 }
 ```
+
 > Appending another vector to a vector
-> ```a.insert(a.end(), b.begin(), b.end());```
+> `a.insert(a.end(), b.begin(), b.end());`
 
 ### Level Order Traversal
 
 Left to right level by level.
+
 ```cpp
 vector<vector<int>> levelOrder(TreeNode* root) {
     vector<vector<int>> result;
@@ -1119,7 +1142,8 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 
 ### Pre, Post and Inorder Traversal in only one traversal
 
-Store ```pair<Node*, int>``` in stack where the value of int represents where to put node: 1 = pre, 2 = inorder, 3 = post, i.e if you encounter the node for the first time then preorder, second time then inorder, third time then post order an element is removed from the stack only when the int = 3 basically doing a preorder traversal
+Store `pair<Node*, int>` in stack where the value of int represents where to put node: 1 = pre, 2 = inorder, 3 = post, i.e if you encounter the node for the first time then preorder, second time then inorder, third time then post order an element is removed from the stack only when the int = 3 basically doing a preorder traversal
+
 ```cpp
 vector<vector<int>> preInPostTraversal(Node* root) {
     // Vectors to store traversals
@@ -1133,7 +1157,7 @@ vector<vector<int>> preInPostTraversal(Node* root) {
         if (it.second == 1){
             pre.push_back(it.first->data);
             it.second++;
-            st.push(it); 
+            st.push(it);
             if(it.first->left) st.push({it.first->left, 1});
         }
         else if (it.second == 2){
@@ -1176,8 +1200,9 @@ private:
 ### Lowest Common Ancestor (LCA) of two nodes in a Tree
 
 - Recursive function which traverse through right & left subtree
-- If ```root == either``` of them then return root
+- If `root == either` of them then return root
 - If both side return a node then the current node is the LCA
+
 ```cpp
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     if(!root) return nullptr;
@@ -1190,17 +1215,18 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
 ## Binary Search Tree (BST)
 
-Property: ```left->val < curr->val < right->val```
+Property: `left->val < curr->val < right->val`
 
 ### Deletion
 
 There are 3 cases in deletion:
+
 1. Leaf node: trivial, point parent node to null
 2. Single child, replace the node with the child node
 3. Two children:
-    1. find successor of node which is the smallest in the right subtree(leftmost)
-    2. put its value in current node
-    3. delete successor
+   1. find successor of node which is the smallest in the right subtree(leftmost)
+   2. put its value in current node
+   3. delete successor
 
 #### Recursive
 
@@ -1261,13 +1287,13 @@ public:
 };
 ```
 
-#### Iterative 
+#### Iterative
 
 Similar, just store the parent of the node to be deleted and point it to right of node replacing.
 
 ## NSE, NGE, PSE, PGE: Next/Previous Smaller/Greater Element
 
-- Finding NGE: iterate from n-1 to 0 as we have to find next 
+- Finding NGE: iterate from n-1 to 0 as we have to find next
 - Push elements onto stack
 - Iterate to next, pop elements from stack till the element is smaller than the one on top of stack that element is NGE
 
@@ -1282,7 +1308,8 @@ vector<int> nge(vector<int> arr, int n){
     }
 }
 ```
-- Similar for NSE (condition in while loop changes to ```arr[i] <= s.top()```)
+
+- Similar for NSE (condition in while loop changes to `arr[i] <= s.top()`)
 - For PSE/PGE loop iterates from 0 to n-1
 
 ## String Functions
@@ -1302,28 +1329,29 @@ long long compute_hash(string const& s) {
     return hash_value;
 }
 ```
-- Use ```p = 31``` for lowercase letters only, and ```p =  53``` for both upper and lower case(as there are 52)
-- ```hash(L, R) = (prefix[R] - prefix[L-1] * power(R - L + 1) + mod) % mod```
+
+- Use `p = 31` for lowercase letters only, and `p =  53` for both upper and lower case(as there are 52)
+- `hash(L, R) = (prefix[R] - prefix[L-1] * power(R - L + 1) + mod) % mod`
 
 ### Rabin-Karp
 
 ```cpp
 vector<int> rabin_karp(string const& s, string const& t) {
-    const int p = 31; 
+    const int p = 31;
     const int m = 1e9 + 9;
     int S = s.size(), T = t.size();
 
-    vector<long long> p_pow(max(S, T)); 
-    p_pow[0] = 1; 
-    for (int i = 1; i < (int)p_pow.size(); i++) 
+    vector<long long> p_pow(max(S, T));
+    p_pow[0] = 1;
+    for (int i = 1; i < (int)p_pow.size(); i++)
         p_pow[i] = (p_pow[i-1] * p) % m;
 
-    vector<long long> h(T + 1, 0); 
+    vector<long long> h(T + 1, 0);
     for (int i = 0; i < T; i++)
-        h[i+1] = (h[i] + (t[i] - 'a' + 1) * p_pow[i]) % m; 
-    long long h_s = 0; 
-    for (int i = 0; i < S; i++) 
-        h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m; 
+        h[i+1] = (h[i] + (t[i] - 'a' + 1) * p_pow[i]) % m;
+    long long h_s = 0;
+    for (int i = 0; i < S; i++)
+        h_s = (h_s + (s[i] - 'a' + 1) * p_pow[i]) % m;
 
     vector<int> occurrences;
     for (int i = 0; i + S <= T; i++) {
@@ -1339,7 +1367,8 @@ O(s + t), s is pattern, t is text in which we have to check
 
 ### Z-Function
 
-Stores max substr from start which is equal to substr from that posn ```i```.
+Stores max substr from start which is equal to substr from that posn `i`.
+
 ```cpp
 vector<int> z_function(string s) {
     int n = s.size();
@@ -1356,11 +1385,13 @@ vector<int> z_function(string s) {
     return z;
 }
 ```
-O(n) tc, O(n) mc  
+
+O(n) tc, O(n) mc
 
 #### Time Complexity Explanation
 
-It will be O(n) as the inner loop will make ```r``` atmost ```n - 1```, so inner loop will run atmost ```n - 1``` times to find substring in string using this attach pattern to original string in the front then if ```z[i + length(p)] == length(p)``` -> substring occurs at that index.
+It will be O(n) as the inner loop will make `r` atmost `n - 1`, so inner loop will run atmost `n - 1` times to find substring in string using this attach pattern to original string in the front then if `z[i + length(p)] == length(p)` -> substring occurs at that index.
+
 ```
 "aaaaa" - [0, 4, 3, 2, 1]
 "aaabaab" - [0, 2, 1, 0, 2, 1, 0]
@@ -1369,7 +1400,8 @@ It will be O(n) as the inner loop will make ```r``` atmost ```n - 1```, so inner
 
 ### Prefix Function: KMP
 
-Similar to z function except here it ```substr``` from ```start = substr``` ending at ```i```.
+Similar to z function except here it `substr` from `start = substr` ending at `i`.
+
 ```cpp
 vector<int> prefix_function(string s) {
     int n = (int)s.length();
@@ -1383,6 +1415,7 @@ vector<int> prefix_function(string s) {
     return pi;
 }
 ```
+
 O(n) tc
 
 ## Designing Data Structures
@@ -1556,18 +1589,19 @@ public:
 
 ### 3. Stack with maximum in O(1)
 
-- Make class with stack and ```maxElement``` variable
-- if ```x > maxElement```, store ```2*x - maxElement``` in stack
-- Since we store ```x = 2*maxEle - prev```
-- Then ```prev = 2*maxEle - x``` (which we are popping lets say)
+- Make class with stack and `maxElement` variable
+- if `x > maxElement`, store `2*x - maxElement` in stack
+- Since we store `x = 2*maxEle - prev`
+- Then `prev = 2*maxEle - x` (which we are popping lets say)
+
 ```cpp
 class MaxStack {
   private:
     stack<int> s;
     int maxEle;
   public:
-    MaxStack() { 
-        maxEle = -1; 
+    MaxStack() {
+        maxEle = -1;
     }
     // Add an element to the top of Stack
     void push(int x) {
@@ -1579,7 +1613,7 @@ class MaxStack {
         else if (x > maxEle) {
             s.push(2 * x - maxEle);
             maxEle = x;
-        } 
+        }
         else s.push(x);
     }
     // Remove the top element from the Stack
@@ -1607,9 +1641,10 @@ class MaxStack {
     }
 };
 ```
-Similarly for getmin() in O(1), push ```minEle = 2*x - minEle```
 
-> Taking minimum/maximum of more than 2 elements ```min({v1, v2, v3...})```
+Similarly for getmin() in O(1), push `minEle = 2*x - minEle`
+
+> Taking minimum/maximum of more than 2 elements `min({v1, v2, v3...})`
 
 ## Tries (Prefix/Digital Tree)
 
@@ -1639,9 +1674,9 @@ Node* root;
 
 public:
     Trie() {
-        root = new Node();        
+        root = new Node();
     }
-    
+
     void insert(string word) {
         int n = word.length();
         Node* curr = root;
@@ -1654,7 +1689,7 @@ public:
         }
         curr->isWord = true;
     }
-    
+
     bool search(string word, bool prefix = false) {
         int n = word.length();
         Node* curr = root;
@@ -1667,12 +1702,12 @@ public:
         }
         return (prefix || curr->isWord);
     }
-    
+
     bool startsWith(string prefix) {
         return search(prefix, true);
     }
 };
- ```
+```
 
 > cout<<setprecision(n) sets number of digits to display after decimal point
 > Does not change calculation, but changes answer due to rounding
