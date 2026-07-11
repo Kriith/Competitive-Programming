@@ -1,0 +1,9 @@
+# VS Code Settings
+.vscode/
+
+# Ignore all solutions executables
+**/a.exe
+
+# Ignore input/output text files
+input.txt
+output.txt

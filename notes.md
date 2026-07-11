@@ -335,7 +335,7 @@ To find the number of subarrays with atmost k:
 - We are counting number of valid subarrays starting from the ```lth``` posn
 - So ```r - l``` gives the exact number of distinct subarrays starting from ```l``` which satsify the condition
 of atmost ```k``` something.
-- Repeat this for ```k - 1```
+- Repeat this for `k - 1`
 
 https://leetcode.com/problems/binary-subarrays-with-sum/
 
@@ -346,7 +346,7 @@ Divide, Conquer then Merge
 2. Conquer: each subarray is sorted(as initially they are individual elements, when merging we sort them)
 3. Merge: merge subarrays in sorted order
 
-```
+```cpp
 //merging vectors into arr[l...r]
 while(i < n1 && j < n2){
     if(L[i] <= R[j]) arr[k] = L[i], i++;
@@ -366,7 +366,7 @@ https://leetcode.com/problems/middle-of-the-linked-list/
 
 ## Breadth-First Search (BFS)
 
-```
+```cpp
 auto bfs = [&](int t)->bool{
     queue<pair<int, int>> q;
     q.push({0, 0});
@@ -396,7 +396,7 @@ O(V+E) tc, O(V) mc
 
 Doesn't require visited array
 
-```
+```cpp
 vector<int> dist(n, INT_MAX);
 dist[src] = 0;
 set<pair<int, int>> s;
@@ -418,7 +418,7 @@ while(!s.empty()){
 
 O(e*logv) tc as we go around all edges and need logV to process, O(v) mc  
 
-> When using ```set<vector\<int\>>``` use ```(*s.begin).first```
+> When using `set<vector\<int\>>` use `(*s.begin).first`
 
 Typical questions has multiple states in Djikstra(refer algo_mashup g) so make multiple dimension dist array
 
@@ -426,7 +426,7 @@ Typical questions has multiple states in Djikstra(refer algo_mashup g) so make m
 
 ### Recursive Lambda Function
 
-```
+```cpp
 function<void(int)> dfs = [&](int t)->void{
     // dbg(t);
     marked[t] = 1;
@@ -438,15 +438,15 @@ function<void(int)> dfs = [&](int t)->void{
 ```
 O(V+E) tc, O(V) mc
 
-## Topological Sort/Topo Sort
+## Topological (Topo) Sort
 
 Puts the vertexes in order of level, i.e. topo sort  
 DFS doesn't care about the level, it just goes along a path
 
-```
+```cpp
 void topo(int t, vector<vector<int>>& adj, vector<bool>& vis, stack<int>& st){
     vis[t] = 1;
-    for(auto i: adj) if(!vis[i]) topo(i, adj, vis, st);
+    for(auto i: adj[t]) if(!vis[i]) topo(i, adj, vis, st);
     st.push(t);
 }
 ```
@@ -457,7 +457,7 @@ O(V+E) tc, O(V) mc due to creation of stack
 
 Repeatedly finds vertices with no incoming edges and adds them to queue, basically BFS
 
-```
+```cpp
 vector<int> topo(vector<int>& adj){
     int n = adj.size();
     vector<int> ind(n);
@@ -497,7 +497,7 @@ Simple BFS or DFS
 1. Topo sort using Kahn's as above == BFS using Kahn's
 2. using DFS
 
-```
+```cpp
 bool dfs(int u, vector<vector<int>>& adj, vector<bool>& vis, vector<bool>& cur){
     if(cur[u]) return 1; //1 signifies contains cycle
     if(vis[u]) return 0;
@@ -510,7 +510,7 @@ bool dfs(int u, vector<vector<int>>& adj, vector<bool>& vis, vector<bool>& cur){
 
 Can also be done using ```colour``` instead of ```vis```
 
-```
+```cpp
 bool dfs(int t, vector<vector<int>>& adj, vector<short>& colour){
     if(colour[t] == 1) return false; //here false indicates cycle is present
     if(colour[t] == 2) return true;
@@ -536,7 +536,7 @@ bool dfs(int t, vector<vector<int>>& adj, vector<short>& colour){
 
 ### Implementation using edges
 
-```
+```cpp
 vector<int> d(n, INF);
 d[v] = 0;
 //p is used to retrieve path
@@ -583,7 +583,7 @@ else {
 
 ### Implementation using adj
 
-```
+```cpp
 int n = adj.size();
 d.assign(n, INF);
 vector<int> cnt(n, 0);
@@ -626,7 +626,7 @@ Multi-Source Shortest Path Finding Algorithm, i.e., finds shortest path between 
 only from 1...k-1. so for ```k = 0, d[i][j] = weight(i, j) = inf``` if there is no edge bw them
 2. Run this for n phases
 
-```
+```cpp
 for (int k = 0; k < n; ++k) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
@@ -647,7 +647,7 @@ Spanning Tree: Tree which covers all nodes in a graph
 
 Choose a vertex and choose the minimum edge from any of the vertexes already chosen, similar to BFS
 
-```
+```cpp
 while(!pq.empty()){
     vector<int> t = *pq.top();
     pq.pop();
@@ -664,7 +664,7 @@ O((E+V)logV) tc, O(V) mc
 
 Always choosing the min edge not already in the set
 
-```
+```cpp
 sort(edges.begin(), edges.end());
 for (Edge e : edges) {
     if (find_set(e.u) != find_set(e.v)) {
@@ -684,7 +684,7 @@ Merging has two approaches: union by rank or by size
 
 ### Union by rank
 
-```
+```cpp
 struct dsu{
     int n;
     vi p;
@@ -715,7 +715,7 @@ struct dsu{
 
 ### Union by size, other way to write rest of the struct
 
-```
+```cpp
 struct dsu{
     vector<int> data;
     int components;
@@ -754,7 +754,7 @@ struct dsu{
 - Do DFS, when you encounter node in the current stack i.e. cycle node
 - Store that node as start of cycle and parent node as end of cycle
 
-```
+```cpp
 bool dfs(int v) {
     color[v] = 1;
     for (int u : adj[v]) {
@@ -773,7 +773,7 @@ bool dfs(int v) {
 }
 ```
 
-Calling the above function in parent function: ```for() if(!colour[i] && dfs) cycle.store(cyclestart, cycleend);```  
+Calling the above function in parent function: `for() if(!colour[i] && dfs) cycle.store(cyclestart, cycleend);`  
 Function returns true when it finds a cycle.
 
 ## Finding Bridges in Graph: Tarjan's Algorithm
@@ -783,9 +783,9 @@ Bridge is the edge which when removed breaks the connectivity of graph, i.e., ma
 ### Logic
 
 - Using DFS with timer to find these edges
-- Two arrays, one stores discovery/in time for the vertice (```tin```)
-- Second stores the lowest possible time to reach the vertex (```low```)
-- If ```u``` is a parent of ```v``` and ```low[v] > tin[u]``` then there is no other way to reach ```v``` other than ```u```
+- Two arrays, one stores discovery/in time for the vertice (`tin`)
+- Second stores the lowest possible time to reach the vertex (`low`)
+- If `u` is a parent of `v` and `low[v] > tin[u]` then there is no other way to reach `v` other than `u`
 
 ### Why does this work?
 
@@ -1673,3 +1673,7 @@ public:
     }
 };
  ```
+
+> cout<<setprecision(n) sets number of digits to display after decimal point
+> Does not change calculation, but changes answer due to rounding
+> Set to 12 for highest accuracy, default is 6, 8 and 10 also usually work depending on problem
